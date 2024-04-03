@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"net"
 	"os"
+	"time"
 )
 
 func main() {
@@ -23,6 +24,11 @@ func main() {
 		panic(err)
 	}
 	_, err = serverconn.Write([]byte(message))
+	if err != nil {
+		panic(err)
+	}
+	deadline := time.Now().Add(5 * time.Second) // Timeout set to 5 seconds
+	err = serverconn.SetDeadline(deadline)
 	if err != nil {
 		panic(err)
 	}
