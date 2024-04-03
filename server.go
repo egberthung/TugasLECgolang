@@ -23,6 +23,7 @@ func main() {
 }
 
 func handleconnection(client net.Conn) {
+	err := client.SetReadDeadline(time.Now().Add(10 * time.Second))
 	var size uint32
 	err := binary.Read(client, binary.LittleEndian, &size)
 	if err != nil {
