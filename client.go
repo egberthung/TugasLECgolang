@@ -14,6 +14,7 @@ func main() {
 		panic(err)
 	}
 	defer serverconn.Close()
+	err = serverconn.SetWriteDeadline(time.Now().Add(time.Second * 10))
 	var message string
 
 	scanner := bufio.NewScanner(os.Stdin)
